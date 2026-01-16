@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2>案件一覧</h2>
+    <a class="btn btn-primary" href="{{ url_for('deal_new') }}">＋ 新規追加</a>
+  </div>
+
+  <form method="get" class="row" style="gap:12px;">
+    <div style="flex:1; min-width:180px;">
+      <label>種別</label>
+      <select name="lead_type">
+        <option value="" {% if not lead_type %}selected{% endif %}>すべて</option>
+        <option value="seller" {% if lead_type=="seller" %}selected{% endif %}>売主（買取）</option>
+        <option value="buyer" {% if lead_type=="buyer" %}selected{% endif %}>買主（購入）</option>
+        <option value="owner" {% if lead_type=="owner" %}selected{% endif %}>オーナー（管理）</option>
+      </select>
+    </div>
+
+    <div style="flex:1; min-width:180px;">
+      <label>進捗</label>
+      <select name="stage">
+        <option value="" {% if not stage %}selected{% endif %}>すべて</option>
+        <option value="hearing" {% if stage=="hearing" %}selected{% endif %}>ヒアリング</option>
+        <option value="research" {% if stage=="research" %}selected{% endif %}>調査中</option>
+        <option value="offer" {% if stage=="offer" %}selected{% endif %}>査定提示</option>
+        <option value="negotiation" {% if stage=="negotiation" %}selected{% endif %}>交渉中</option>
+        <option value="contract" {% if stage=="contract" %}selected{% endif %}>契約</option>
+        <option value="lost" {% if stage=="lost" %}selected{% endif %}>失注・保留</option>
+      </select>
+    </div>
+
+    <div style="flex:1; min-width:180px;">
+      <label>エリア</label>
+      <input name="area" value="{{ area or '' }}" placeholder="例：北区">
+    </div>
+
+    <div style="display:flex; align-items:flex-end; gap:10px;">
+      <button class="btn" type="submit">絞り込み</button>
+      <a class="pill" href="{{ url_for('deals') }}">リセット</a>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  {% if rows|length == 0 %}
+    <p class="small">該当する案件はありません。</p>
+  {% else %}
+  <div class="table-wrap">
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>種別</th>
+        <th>名前</th>
+        <th>エリア</th>
+        <th>物件種別</th>
+        <th>価格</th>
+        <th>進捗</th>
+        <th>次回連絡日</th>
+        <th>次のアクション</th>
+        <th>編集</th>
+      </tr>
+
+      {% for r in rows %}
+      <tr class="
+        {% if r.days_idle >= 14 %}idle-bad
+        {% elif r.days_idle >= 7 %}idle-warn
+        {% endif %}
+        {% if r.lead_type=='seller' %} seller-row{% endif %}
+      ">
+        <td>{{ r.id }}</td>
+
+        <td>
+          {% if r.lead_type=="seller" %}
+            <span class="type-seller">売主（買取）</span>
+          {% elif r.lead_type=="buyer" %}
+            <span class="type-buyer">買主</span>
+          {% elif r.lead_type=="owner" %}
+            <span class="type-owner">オーナー</span>
+          {% endif %}
+        </td>
+
+        <td><a href="{{ url_for('deal_edit', deal_id=r.id) }}">{{ r.name }}</a></td>
+        <td>{{ r.area }}</td>
+        <td>{{ r.asset_type }}</td>
+        <td>{% if r.price_yen %}{{ "{:,}".format(r.price_yen) }}円{% endif %}</td>
+
+        <td>
+          {% if r.deal_stage=="hearing" %}ヒアリング
+          {% elif r.deal_stage=="research" %}調査中
+          {% elif r.deal_stage=="offer" %}査定提示
+          {% elif r.deal_stage=="negotiation" %}交渉中
+          {% elif r.deal_stage=="contract" %}契約
+          {% elif r.deal_stage=="lost" %}失注・保留
+          {% endif %}
+
+          {% if r.days_idle >= 14 %}
+            <span class="idle-badge idle-14">14日以上未接触</span>
+          {% elif r.days_idle >= 7 %}
+            <span class="idle-badge idle-7">7日以上未接触</span>
+          {% endif %}
+        </td>
+
+        <td>{{ r.next_contact }}</td>
+        <td>{{ r.next_action }}</td>
+        <td><a class="btn" href="{{ url_for('deal_edit', deal_id=r.id) }}">編集</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

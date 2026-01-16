@@ -1,0 +1,89 @@
+<div class="row">
+  <div>
+    <div class="muted">種別</div>
+    <select name="lead_type">
+      <option value="seller" {% if row.lead_type=="seller" %}selected{% endif %}>seller（買取/売主）</option>
+      <option value="buyer" {% if row.lead_type=="buyer" %}selected{% endif %}>buyer（購入者/投資家）</option>
+      <option value="owner" {% if row.lead_type=="owner" %}selected{% endif %}>owner（管理委託）</option>
+    </select>
+  </div>
+
+  <div>
+    <div class="muted">ステータス</div>
+    <select name="status">
+      <option value="active" {% if row.status=="active" %}selected{% endif %}>active</option>
+      <option value="inactive" {% if row.status=="inactive" %}selected{% endif %}>inactive</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">名前（必須）</div>
+    <input name="name" required value="{{ row.name }}">
+  </div>
+  <div>
+    <div class="muted">電話</div>
+    <input name="phone" value="{{ row.phone or '' }}">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">メール</div>
+    <input name="email" value="{{ row.email or '' }}">
+  </div>
+  <div>
+    <div class="muted">流入（紹介/チラシ/SUUMOなど）</div>
+    <input name="source" value="{{ row.source or '' }}">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">エリア</div>
+    <input name="area" value="{{ row.area or '' }}">
+  </div>
+  <div>
+    <div class="muted">種別（長屋/古家/土地など）</div>
+    <input name="asset_type" value="{{ row.asset_type or '' }}">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">価格（円）</div>
+    <input name="price_yen" type="number" min="0" step="1" value="{{ row.price_yen or 0 }}">
+  </div>
+  <div>
+    <div class="muted">期限（任意）</div>
+    <input name="deadline" value="{{ row.deadline or '' }}" placeholder="YYYY-MM-DD">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">ステージ</div>
+    <input name="deal_stage" value="{{ row.deal_stage or '' }}" placeholder="例：hearing / research / offer">
+  </div>
+  <div>
+    <div class="muted">最終連絡日</div>
+    <input name="last_contact" value="{{ row.last_contact or '' }}" placeholder="YYYY-MM-DD">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">次回連絡日</div>
+    <input name="next_contact" value="{{ row.next_contact or '' }}" placeholder="YYYY-MM-DD">
+  </div>
+  <div>
+    <div class="muted">次アクション（重要）</div>
+    <input name="next_action" value="{{ row.next_action or '' }}" placeholder="例：現地調査日程の確定">
+  </div>
+</div>
+
+<div>
+  <div class="muted">メモ</div>
+  <textarea name="notes" rows="5">{{ row.notes or '' }}</textarea>
+</div>

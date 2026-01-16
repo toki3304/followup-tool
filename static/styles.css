@@ -1,0 +1,227 @@
+:root{
+  --bg:#0f1115;
+  --card:#151923;
+  --card2:#10141c;
+  --text:#e9eef6;
+  --muted:#a7b0c0;
+  --line: rgba(255,255,255,.10);
+  --accent:#4f8cff;
+  --ok:#2dd4bf;
+  --warn:#f59e0b;
+  --bad:#fb7185;
+  --radius:14px;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  background: radial-gradient(1200px 600px at 20% 0%, rgba(79,140,255,.18), transparent 60%),
+              radial-gradient(900px 500px at 100% 20%, rgba(45,212,191,.14), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  line-height:1.6;
+}
+
+a{ color:inherit; text-decoration:none; }
+.container{
+  width:min(1100px, 92%);
+  margin:22px auto 64px;
+}
+
+.nav{
+  position: sticky;
+  top:0;
+  backdrop-filter: blur(10px);
+  background: rgba(15,17,21,.72);
+  border-bottom: 1px solid var(--line);
+  z-index:10;
+}
+.nav-inner{
+  width:min(1100px, 92%);
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+.brand-badge{
+  width:34px;height:34px;
+  border-radius:10px;
+  background: linear-gradient(135deg, rgba(79,140,255,1), rgba(45,212,191,1));
+  box-shadow: 0 10px 30px rgba(79,140,255,.22);
+}
+.nav-links{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.pill{
+  border:1px solid var(--line);
+  padding:8px 12px;
+  border-radius:999px;
+  color: var(--muted);
+  background: rgba(255,255,255,.03);
+}
+.pill:hover{ border-color: rgba(255,255,255,.22); color: var(--text); }
+
+h1,h2,h3{ margin:0 0 12px; line-height:1.2; }
+h2{ font-size:22px; }
+h3{ font-size:16px; color: var(--muted); font-weight:600; }
+
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:14px;
+}
+@media (max-width: 880px){
+  .grid{ grid-template-columns: 1fr; }
+}
+
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  padding:14px;
+}
+.card-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+}
+.badge{
+  font-size:12px;
+  color: var(--muted);
+  border:1px solid var(--line);
+  padding:3px 10px;
+  border-radius:999px;
+  background: rgba(255,255,255,.03);
+}
+
+.table-wrap{
+  overflow:auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+table{
+  width:100%;
+  border-collapse: collapse;
+  min-width: 780px;
+  background: rgba(0,0,0,.15);
+}
+th,td{
+  padding:10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align:left;
+  white-space: nowrap;
+}
+th{
+  font-size:12px;
+  color: var(--muted);
+  letter-spacing:.4px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,.03);
+}
+tr:hover td{ background: rgba(255,255,255,.03); }
+
+.kbd{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-bottom-color: rgba(255,255,255,.22);
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.02);
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius: 12px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,.20);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  cursor:pointer;
+}
+.btn:hover{ border-color: rgba(255,255,255,.35); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn-primary{
+  border-color: rgba(79,140,255,.55);
+  background: rgba(79,140,255,.18);
+}
+.btn-primary:hover{ border-color: rgba(79,140,255,.9); }
+
+input,select,textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.20);
+  color: var(--text);
+  outline:none;
+}
+input:focus,select:focus,textarea:focus{
+  border-color: rgba(79,140,255,.70);
+  box-shadow: 0 0 0 3px rgba(79,140,255,.18);
+}
+label{ display:block; font-size:12px; color: var(--muted); margin: 10px 0 6px; }
+
+.flash{
+  border:1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin: 12px 0;
+  background: rgba(255,255,255,.03);
+}
+.flash.ok{ border-color: rgba(45,212,191,.45); }
+.flash.error{ border-color: rgba(251,113,133,.45); }
+.small{ color: var(--muted); font-size: 12px; }
+/* ===== 種別カラー ===== */
+.type-seller{
+  color: #22c55e;          /* 緑 */
+  font-weight: 700;
+}
+.type-buyer{
+  color: #60a5fa;          /* 青 */
+}
+.type-owner{
+  color: #fbbf24;          /* 黄 */
+}
+
+/* 売主を強調した行 */
+tr.seller-row td{
+  background: rgba(34,197,94,.08);
+}
+tr.seller-row:hover td{
+  background: rgba(34,197,94,.15);
+}
+
+/* ===== 未接触アラート ===== */
+.idle-warn td{
+  background: rgba(245,158,11,.12); /* オレンジ */
+}
+.idle-bad td{
+  background: rgba(239,68,68,.18);  /* 赤 */
+}
+.idle-badge{
+  font-size:12px;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.25);
+}
+.idle-7{ color:#f59e0b; border-color:#f59e0b; }
+.idle-14{ color:#ef4444; border-color:#ef4444; }

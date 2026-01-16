@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2>案件編集 <span class="badge">#{{ row.id }}</span></h2>
+    <a class="pill" href="{{ url_for('deals') }}">← 一覧へ戻る</a>
+  </div>
+</div>
+
+<div class="card">
+  <form method="post">
+    <div class="row">
+      <div>
+        <label>種別</label>
+        <select name="lead_type">
+          <option value="seller" {% if row.lead_type=="seller" %}selected{% endif %}>売主（買取）</option>
+          <option value="buyer" {% if row.lead_type=="buyer" %}selected{% endif %}>買主（購入）</option>
+          <option value="owner" {% if row.lead_type=="owner" %}selected{% endif %}>オーナー（管理）</option>
+        </select>
+      </div>
+
+      <div>
+        <label>ステータス</label>
+        <select name="status">
+          <option value="active" {% if row.status=="active" %}selected{% endif %}>進行中</option>
+          <option value="inactive" {% if row.status=="inactive" %}selected{% endif %}>停止・保留</option>
+        </select>
+      </div>
+    </div>
+
+    <label>名前</label>
+    <input name="name" value="{{ row.name }}" required>
+
+    <label>電話番号</label>
+    <input name="phone" value="{{ row.phone or '' }}">
+
+    <label>メールアドレス</label>
+    <input name="email" value="{{ row.email or '' }}">
+
+    <label>流入経路</label>
+    <input name="source" value="{{ row.source or '' }}" placeholder="紹介・チラシなど">
+
+    <label>エリア</label>
+    <input name="area" value="{{ row.area or '' }}">
+
+    <label>物件種別</label>
+    <input name="asset_type" value="{{ row.asset_type or '' }}">
+
+    <label>価格（円）</label>
+    <input name="price_yen" type="number" value="{{ row.price_yen or 0 }}">
+
+    <label>進捗</label>
+    <select name="deal_stage">
+    <option value="hearing" {% if row.deal_stage=="hearing" %}selected{% endif %}>ヒアリング</option>
+    <option value="research" {% if row.deal_stage=="research" %}selected{% endif %}>調査中</option>
+    <option value="offer" {% if row.deal_stage=="offer" %}selected{% endif %}>査定提示</option>
+    <option value="negotiation" {% if row.deal_stage=="negotiation" %}selected{% endif %}>交渉中</option>
+    <option value="contract" {% if row.deal_stage=="contract" %}selected{% endif %}>契約</option>
+    <option value="lost" {% if row.deal_stage=="lost" %}selected{% endif %}>失注・保留</option>
+    </select>
+    <input name="deal_stage" value="{{ row.deal_stage }}">
+
+    <label>最終連絡日</label>
+    <input name="last_contact" value="{{ row.last_contact or '' }}" placeholder="YYYY-MM-DD">
+
+    <label>次回連絡日</label>
+    <input name="next_contact" value="{{ row.next_contact or '' }}" placeholder="YYYY-MM-DD">
+
+    <label>次のアクション</label>
+    <input name="next_action" value="{{ row.next_action or '' }}">
+
+    <label>メモ</label>
+    <textarea name="notes" rows="4">{{ row.notes or '' }}</textarea>
+
+    <div style="margin-top:12px;">
+      <button class="btn btn-primary" type="submit">保存する</button>
+      <a class="btn" href="{{ url_for('deals') }}">キャンセル</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

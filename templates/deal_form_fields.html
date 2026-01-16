@@ -1,0 +1,89 @@
+<div class="row">
+  <div>
+    <div class="muted">種別</div>
+    <select name="lead_type">
+      <option value="seller">seller（買取/売主）</option>
+      <option value="buyer">buyer（購入者/投資家）</option>
+      <option value="owner">owner（管理委託）</option>
+    </select>
+  </div>
+
+  <div>
+    <div class="muted">ステータス</div>
+    <select name="status">
+      <option value="active">active</option>
+      <option value="inactive">inactive</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">名前（必須）</div>
+    <input name="name" required placeholder="例：田中 太郎">
+  </div>
+  <div>
+    <div class="muted">電話</div>
+    <input name="phone" placeholder="090-xxxx-xxxx">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">メール</div>
+    <input name="email" placeholder="example@mail.com">
+  </div>
+  <div>
+    <div class="muted">流入（紹介/チラシ/SUUMOなど）</div>
+    <input name="source" placeholder="紹介">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">エリア</div>
+    <input name="area" placeholder="大阪市北区">
+  </div>
+  <div>
+    <div class="muted">種別（長屋/古家/土地など）</div>
+    <input name="asset_type" placeholder="長屋">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">価格（円）</div>
+    <input name="price_yen" type="number" min="0" step="1" placeholder="18000000">
+  </div>
+  <div>
+    <div class="muted">期限（任意）</div>
+    <input name="deadline" placeholder="YYYY-MM-DD">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">ステージ</div>
+    <input name="deal_stage" placeholder="例：hearing / research / offer">
+  </div>
+  <div>
+    <div class="muted">最終連絡日</div>
+    <input name="last_contact" placeholder="YYYY-MM-DD">
+  </div>
+</div>
+
+<div class="row">
+  <div>
+    <div class="muted">次回連絡日</div>
+    <input name="next_contact" placeholder="YYYY-MM-DD">
+  </div>
+  <div>
+    <div class="muted">次アクション（重要）</div>
+    <input name="next_action" placeholder="例：現地調査日程の確定">
+  </div>
+</div>
+
+<div>
+  <div class="muted">メモ</div>
+  <textarea name="notes" rows="4" placeholder="相続で売却検討 / 再建築可否が気になる など"></textarea>
+</div>

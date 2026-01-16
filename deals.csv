@@ -1,0 +1,5 @@
+id,lead_type,name,phone,email,source,area,asset_type,price_yen,deadline,deal_stage,status,last_contact,next_contact,next_action,notes
+1,seller,田中 太郎,090-1234-5678,tanaka@example.com,紹介,大阪市北区,長屋,18000000,2026-02-15,hearing,active,2026-01-10,2026-01-17,現地調査日程の確定,相続で売却検討
+2,seller,佐藤 花子,080-1111-2222,sato@example.com,チラシ,大阪市福島区,古家,12000000,2026-01-31,research,active,2026-01-05,2026-01-16,役所調査（道路/用途）して査定提示,再建築可否が気になる
+3,buyer,鈴木 一郎,070-9999-8888,suzuki@example.com,SUUMO,大阪市北区,一棟アパート,0,2026-03-01,proposal,active,2026-01-08,2026-01-20,利回り8%前後の提案資料送付,融資相談あり
+4,owner,山田 次郎,090-0000-0000,yamada@example.com,既存顧客,大阪市北区,戸建,0,,proposal,active,2026-01-03,2026-01-17,管理プラン比較表を送る,退去対応が負担

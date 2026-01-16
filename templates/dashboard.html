@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h2>ダッシュボード <span class="badge">Today {{ today }}</span></h2>
+    <div class="small">今日やるべき追客だけを表示</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-header">
+      <h2>今日の追客</h2>
+      <span class="badge">next_contact ≤ today</span>
+    </div>
+
+    {% if due|length == 0 %}
+      <p class="small">今日の追客はありません。</p>
+    {% else %}
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>種別</th>
+          <th>名前</th>
+          <th>エリア</th>
+          <th>物件</th>
+          <th>進捗</th>
+          <th>次回</th>
+          <th>次のアクション</th>
+          <th>完了</th>
+        </tr>
+
+        {% for r in due %}
+        <tr class="
+          {% if r.days_idle >= 14 %}idle-bad
+          {% elif r.days_idle >= 7 %}idle-warn
+          {% endif %}
+          {% if r.lead_type=='seller' %} seller-row{% endif %}
+        ">
+          <td>
+            {% if r.lead_type=="seller" %}
+              <span class="type-seller">売主</span>
+            {% elif r.lead_type=="buyer" %}
+              <span class="type-buyer">買主</span>
+            {% elif r.lead_type=="owner" %}
+              <span class="type-owner">管理</span>
+            {% endif %}
+          </td>
+
+          <td><a href="{{ url_for('deal_edit', deal_id=r.id) }}">{{ r.name }}</a></td>
+          <td>{{ r.area }}</td>
+          <td>{{ r.asset_type }}</td>
+
+          <td>
+            {% if r.deal_stage=="hearing" %}ヒアリング
+            {% elif r.deal_stage=="research" %}調査中
+            {% elif r.deal_stage=="offer" %}査定提示
+            {% elif r.deal_stage=="negotiation" %}交渉中
+            {% elif r.deal_stage=="contract" %}契約
+            {% elif r.deal_stage=="lost" %}失注・保留
+            {% endif %}
+
+            {% if r.days_idle >= 14 %}
+              <span class="idle-badge idle-14">14日以上未接触</span>
+            {% elif r.days_idle >= 7 %}
+              <span class="idle-badge idle-7">7日以上未接触</span>
+            {% endif %}
+          </td>
+
+          <td>{{ r.next_contact }}</td>
+          <td>{{ r.next_action }}</td>
+
+          <td>
+            <form method="post" action="{{ url_for('deal_touch', deal_id=r.id) }}">
+              <input type="hidden" name="next_days" value="7">
+              <button class="btn btn-primary" type="submit">連絡した</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>7日以内の期限</h2>
+      <span class="badge">deadline ≤ 7days</span>
+    </div>
+
+    {% if upcoming|length == 0 %}
+      <p class="small">期限が近い案件はありません。</p>
+    {% else %}
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>種別</th>
+          <th>名前</th>
+          <th>期限</th>
+          <th>進捗</th>
+          <th>次のアクション</th>
+        </tr>
+
+        {% for r in upcoming %}
+        <tr class="{% if r.lead_type=='seller' %}seller-row{% endif %}">
+          <td>
+            {% if r.lead_type=="seller" %}<span class="type-seller">売主</span>
+            {% elif r.lead_type=="buyer" %}<span class="type-buyer">買主</span>
+            {% elif r.lead_type=="owner" %}<span class="type-owner">管理</span>
+            {% endif %}
+          </td>
+
+          <td><a href="{{ url_for('deal_edit', deal_id=r.id) }}">{{ r.name }}</a></td>
+          <td>{{ r.deadline }}</td>
+
+          <td>
+            {% if r.deal_stage=="hearing" %}ヒアリング
+            {% elif r.deal_stage=="research" %}調査中
+            {% elif r.deal_stage=="offer" %}査定提示
+            {% elif r.deal_stage=="negotiation" %}交渉中
+            {% elif r.deal_stage=="contract" %}契約
+            {% elif r.deal_stage=="lost" %}失注・保留
+            {% endif %}
+          </td>
+
+          <td>{{ r.next_action }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Followup CRM</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div>
+          Followup CRM<br>
+          <span class="small">買取・分譲・管理 / 自分用</span>
+        </div>
+      </div>
+
+      {% if current_user.is_authenticated %}
+      <div class="nav-links">
+        <a class="pill" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="pill" href="{{ url_for('deals') }}">Deals</a>
+        <a class="pill" href="{{ url_for('pipeline') }}">Pipeline</a>
+        <a class="pill" href="{{ url_for('logout') }}">Logout</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

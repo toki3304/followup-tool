@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Pipeline {% if lead_type %}<span class="chip">{{ lead_type }}</span>{% endif %}</h2>
+
+<div class="row">
+  <a class="btn2" href="{{ url_for('pipeline') }}">All</a>
+  <a class="btn2" href="{{ url_for('pipeline', lead_type='seller') }}">seller</a>
+  <a class="btn2" href="{{ url_for('pipeline', lead_type='buyer') }}">buyer</a>
+  <a class="btn2" href="{{ url_for('pipeline', lead_type='owner') }}">owner</a>
+</div>
+
+{% if items|length == 0 %}
+  <p class="muted">アクティブ案件がありません。</p>
+{% else %}
+<table>
+  <tr><th>stage</th><th>count</th></tr>
+  {% for st, cnt in items %}
+    <tr><td>{{ st }}</td><td>{{ cnt }}</td></tr>
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

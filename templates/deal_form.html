@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>New Deal</h2>
+
+<form method="post">
+  <p>
+    種別(type):
+    <select name="lead_type">
+      <option value="seller">seller（買取/売主）</option>
+      <option value="buyer">buyer（買主）</option>
+      <option value="owner">owner（管理）</option>
+    </select>
+  </p>
+
+  <p>名前: <input name="name" required></p>
+  <p>電話: <input name="phone"></p>
+  <p>エリア: <input name="area"></p>
+  <p>物件種別: <input name="asset_type" placeholder="長屋/古家/土地"></p>
+
+  <p>
+   <label>進捗</label>
+    <select name="deal_stage">
+    <option value="hearing">ヒアリング</option>
+    <option value="research">調査中</option>
+    <option value="offer">査定提示</option>
+    <option value="negotiation">交渉中</option>
+    <option value="contract">契約</option>
+    </select>
+
+  </p>
+
+  <p>
+    次回連絡日(next_contact):
+    <input name="next_contact" placeholder="YYYY-MM-DD">
+  </p>
+
+  <p>
+    次アクション(next_action):
+    <input name="next_action" placeholder="例：現地調査日程の確定">
+  </p>
+
+  <p>メモ: <br><textarea name="notes" rows="4" cols="40"></textarea></p>
+
+  <button type="submit">Create</button>
+</form>
+{% endblock %}
