@@ -260,6 +260,23 @@ def deal_edit(deal_id):
 
     return render_template("deal_edit.html", row=row)
 
+# ✅ 追加：削除（POSTで安全に削除）
+@app.route("/deals/<int:deal_id>/delete", methods=["POST"])
+@login_required
+def deal_delete(deal_id):
+    row = get_deal(deal_id)
+    if not row:
+        flash("案件が見つかりません。", "error")
+        return redirect(url_for("deals"))
+
+    conn = connect_db()
+    conn.execute("DELETE FROM deals WHERE id=?;", (deal_id,))
+    conn.commit()
+    conn.close()
+
+    flash("案件を削除しました。", "ok")
+    return redirect(url_for("deals"))
+
 @app.route("/deals/<int:deal_id>/touch", methods=["POST"])
 @login_required
 def deal_touch(deal_id):
@@ -328,4 +345,3 @@ if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", "5000"))
     app.run(host="0.0.0.0", port=port, debug=True)
-

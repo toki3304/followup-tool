@@ -58,7 +58,7 @@
         <th>進捗</th>
         <th>次回連絡日</th>
         <th>次のアクション</th>
-        <th>編集</th>
+        <th>操作</th>
       </tr>
 
       {% for r in rows %}
@@ -103,7 +103,17 @@
 
         <td>{{ r.next_contact }}</td>
         <td>{{ r.next_action }}</td>
-        <td><a class="btn" href="{{ url_for('deal_edit', deal_id=r.id) }}">編集</a></td>
+
+        <td style="white-space:nowrap;">
+          <a class="btn" href="{{ url_for('deal_edit', deal_id=r.id) }}">編集</a>
+
+          <form action="{{ url_for('deal_delete', deal_id=r.id) }}"
+                method="post"
+                style="display:inline;"
+                onsubmit="return confirm('本当に削除しますか？（ID: {{ r.id }} / {{ r.name }}）');">
+            <button class="btn btn-danger" type="submit">削除</button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </table>
