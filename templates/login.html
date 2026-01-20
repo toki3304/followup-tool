@@ -12,6 +12,12 @@
       <input name="password" type="password" required>
     </div>
   </div>
+
   <button class="btn" type="submit">Login</button>
 </form>
+
+<div style="margin-top:14px; text-align:center;">
+  <span class="muted">アカウントをお持ちでない場合：</span>
+  <a href="{{ url_for('register') }}">新規登録</a>
+</div>
 {% endblock %}
